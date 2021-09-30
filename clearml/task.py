@@ -1663,6 +1663,16 @@ class Task(_Task):
         """
         super(Task, self).set_model_label_enumeration(enumeration=enumeration)
 
+    def set_last_iteration(self, iteration):
+        # type: (int) -> int
+        """
+        Set the current iteration. Useful when using automatic resource monitoring.
+
+        :param int iteration: The current iteration.
+        :return: The current iteration.
+        """
+        return super(Task, self).set_last_iteration(iteration=iteration)
+
     def get_last_iteration(self):
         # type: () -> int
         """
