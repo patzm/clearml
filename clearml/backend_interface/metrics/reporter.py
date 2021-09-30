@@ -199,7 +199,7 @@ class Reporter(InterfaceBase, AbstractContextManager, SetupUploadMixin, AsyncMan
         ev_iteration = ev.get_iteration()
         if ev_iteration is not None:
             # we have to manually add get_iteration_offset() because event hasn't reached the Metric manager
-            self._max_iteration = max(self._max_iteration, ev_iteration + self._metrics.get_iteration_offset())
+            self.set_max_iteration(iteration=ev_iteration + self._metrics.get_iteration_offset())
         self._report_service.add_event(ev)
 
     def flush(self):
@@ -212,6 +212,9 @@ class Reporter(InterfaceBase, AbstractContextManager, SetupUploadMixin, AsyncMan
     def wait_for_events(self, timeout=None):
         if self._report_service:
             return self._report_service.wait_for_events(timeout=timeout)
+
+    def set_max_iteration(self, iteration):
+        self._max_iteration = max(self._max_iteration, iteration)
 
     def stop(self):
         if not self._report_service:
