@@ -1494,6 +1494,16 @@ class Task(IdObjectBase, AccessMixin, SetupUploadMixin):
         """
         return self._initial_iteration_offset
 
+    def set_last_iteration(self, iteration):
+        # type: (int) -> int
+        """
+        Set the current iteration. Useful when using automatic resource monitoring.
+
+        :param int iteration: The current iteration.
+        :return: The current iteration.
+        """
+        return self._reporter.set_max_iteration(iteration=iteration)
+
     def get_status(self):
         # type: () -> str
         """
